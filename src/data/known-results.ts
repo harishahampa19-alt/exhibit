@@ -184,7 +184,11 @@ export const OSP_VS_PERFECT = {
 export const DERIVED_LAWS = [
   {
     tier: 'math' as Tier,
-    text: 'The Observer’s only winning shapes are (move 6, square 5), (move 8, square 9) and (move 8, square 5). It wins on the centre or on the terminal number, nowhere else.',
+    text: 'The Observer wins almost exclusively on (move 6, square 5), (move 8, square 9) and (move 8, square 5) — about 98.6% of its wins — so it wins on the centre or on the terminal number in nearly every case.',
+  },
+  {
+    tier: 'math' as Tier,
+    text: 'Correction to the original write-up, which claimed those three were the ONLY winning shapes. A fourth exists: (move 8, square 2), at roughly 0.5% of games. At move 8 the stage target is 9, and OSP falls back by numeric distance — reaching square 2 only when 9, 8, 7, 6, 5, 4 and 3 are all taken, leaving empties {1, 2} where 2 is the nearer. The Observer then wins on line 2-5-8. It is rare enough to miss in a 2,000-game sample, which is how the original run missed it.',
   },
   {
     tier: 'math' as Tier,

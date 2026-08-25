@@ -97,6 +97,25 @@ describe('the Observer’s derived laws', () => {
     expect(onCentreOrNine.length / wins.length).toBeGreaterThan(0.95);
   });
 
+  it('has a rare fourth winning shape the original write-up missed: (8, square 2)', () => {
+    // The original run recorded only (6,5), (8,9) and (8,5). A fourth exists.
+    // At move 8 the stage target is 9; OSP falls back by numeric distance and
+    // reaches square 2 only when 9, 8, 7, 6, 5, 4 and 3 are all taken, leaving
+    // empties {1, 2} where 2 is nearer to 9. The win is on line 2-5-8.
+    const fourth = wins.filter((g) => g.endMove === 8 && g.terminalSquare === 2);
+    expect(fourth.length).toBeGreaterThan(0);
+    // Rare enough to vanish in a small sample — which is how it was missed.
+    expect(fourth.length / vsRandom.length).toBeLessThan(0.02);
+
+    for (const g of fourth) {
+      const final = boardFromSequence(g.sequence);
+      // The winning line must be 2-5-8; 1-2-3 is impossible because square 1
+      // is still empty at move 8 whenever OSP lands on 2.
+      expect(g.winningLine).toEqual([2, 5, 8]);
+      expect(final[0]).toBeNull();
+    }
+  });
+
   it('ends games against a perfect opponent only at moves 5, 7 or 9', () => {
     const endMoves = new Set(vsPerfect.map((g) => g.endMove));
     for (const m of endMoves) expect([5, 7, 9]).toContain(m);
